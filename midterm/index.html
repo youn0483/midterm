@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css"> </head>
+
+<body ng-app="todo" ng-controller="todoCTRL">
+  <div class="container" style="width:600px;">
+    <div class="row">
+      <div>
+        <h1>To be Done </h1> </div>
+      <div class="Todo">
+        <form ng-submit="add()">
+          <input class="addTask col-xs-11" ng-model="addTask.header" type="text" placeholder="New Task...">
+          <input class="addDate col-xs-5" ng-model="addTask.date" type="date" placeholder="Date (mm/dd/yy)">
+          <button class="addButton">Add</button>
+        </form>
+        <br>
+        <ul class="list row">
+          <h2>To be done:</h2>
+          <!-- updated the ngRepeat filter as per my email from last night -->
+          <li ng-repeat="task in tasks | filter:{finished:false} track by $index"> <span class="listItem">
+                               
+
+                              <span type="text" ng-model="task.header">{{task.header}}</span> <span type="date" ng-model="task.date">{{task.date | date}}</span>
+            <input ng-model="task.finished" type="checkbox" class="checkbox" id="checkItem" ng-change="save()">
+            <button ng-click="delete()" class="deleteButton">Delete</button>
+            </span>
+          </li>
+          <h2>Stuff Completed:</h2>
+          <li ng-repeat="task in tasks | filter:{finished:true} track by $index"> <span class="listFinished">
+                                 
+                                 
+                              <span type="text" ng-model="task.header">{{task.header}}</span> <span type="date" ng-model="task.date">{{task.date | date}}</span>
+            <input ng-model="task.finished" type="checkbox" class="checkbox" id="checkItem" ng-change="save()">
+            <button ng-click="delete()" class="deleteButton"></button>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
